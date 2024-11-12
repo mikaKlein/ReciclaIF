@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Resíduo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Recicla</div>
+        <div class="usuario">
+            <span>Conteudista</span>
+        </div>
+    </header>
+    <main>
+        <div class="form-container">
+            <h1>Cadastrar resíduo</h1>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="imagem">Adicionar Imagem</label>
+                    <input type="file" id="imagem" name="imagem" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
+                </div>
+
+                <div class="form-group">
+
+                    <!--FAZER AS OPÇÕES DE COLETOR VIRAREM AS PRÉ-DETERMINADAS DO BANCO DE DADOS-->
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo">
+                        <option value="">Selecionar tipo de coletor</option>
+                        <option value="organico">Orgânico</option>
+                        <option value="plastico">Plástico</option>
+                        <option value="papel">Papel</option>
+                        <option value="vidro">Vidro</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Cadastrar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
