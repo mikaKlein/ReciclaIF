@@ -1,0 +1,16 @@
+{
+    "name": "mikae/recicla-if",
+    "authors": [
+        {
+            "name": "Mikael",
+            "email": "mikaeloklein@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+
+}
