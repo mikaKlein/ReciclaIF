@@ -5,7 +5,7 @@ require_once __DIR__."/vendor/autoload.php";
 if(isset($_POST['botao'])){
 
     $imagem = $_FILES['imagem'];
-    $pasta_imagens = __DIR__ . "/imagensResiduos";
+    $pasta_imagens = "imagensResiduos";
 
     if (!is_dir($pasta_imagens)) {
         mkdir($pasta_imagens, 0777, true);
