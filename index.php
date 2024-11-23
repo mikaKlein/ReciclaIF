@@ -38,15 +38,20 @@ $residuos = Residuo::findall();
 
                     echo "<td><img src='{$caminho_imagem}' width='50px'></td>";
                     echo "<td>
-                            <a href='editarResiduo.php?idResiduo={$residuo->getIdResiduo()}'>Editar</a>
-                            <a href='deletarResiduo.php?idResiduo={$residuo->getIdResiduo()}'>Excluir</a>
+                            <a href='visualizarResiduo.php?idResiduo={$residuo->getIdResiduo()}' class='btn-visualizar'>Visualizar</a>
+                            <a href='editarResiduo.php?idResiduo={$residuo->getIdResiduo()}' class='btn-editar'>Editar</a>
+                            <a href='deletarResiduo.php?idResiduo={$residuo->getIdResiduo()}' class='btn-excluir'>Excluir</a>
                         </td>";
                     echo "</tr>";
                 }
                 ?>
             </table>
         </div>
-        <a href='cadastrarResiduo.php'>Adicionar Residuo</a>
+        <a href='cadastrarResiduo.php' class='btn-add'>
+            <button class="btn-add-residuo">
+                <span class="btn-add-text">+</span> Adicionar Resíduo
+            </button>
+        </a>
     </main>
 </body>
 </html>

@@ -75,7 +75,10 @@ if(isset($_POST['botao'])){
                 <label for="imagem">Adicionar Imagem</label>
                 <input type="file" id="imagem" name="imagem" accept="image/*">
                 <?php if ($imagem): ?>
-                    <p>Imagem atual: <img src="<?php echo $imagem; ?>" alt="Imagem do resíduo" width="100"></p>
+                    <div class="imagem-container">
+                        <p>Imagem atual:</p>
+                        <img src="<?php echo $imagem; ?>" alt="Imagem do resíduo" width="100">
+                    </div>
                 <?php endif; ?>
             </div>
 

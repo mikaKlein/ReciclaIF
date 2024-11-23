@@ -30,6 +30,7 @@ header .usuario {
 
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -111,11 +112,12 @@ table {
 
 table, th, td {
     border: 1px solid #ddd;
+    border-collapse: collapse; /* Garante que a borda da tabela seja uniforme */
 }
 
 th, td {
     padding: 10px;
-    text-align: left;
+    text-align: center; /* Alinha o conteúdo ao centro */
 }
 
 th {
@@ -135,4 +137,160 @@ p {
     text-align: center;
     font-size: 16px;
     color: #888;
+}
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 10px; /* Espaçamento entre os botões */
+    font-weight: bold;
+    text-align: center;
+}
+.btn-visualizar {
+    background-color: #2196F3; /* Cor azul para visualizar */
+    color: white;
+    border: 1px solid #2196F3; /* Borda azul */
+}
+
+/* Botão Editar (cor azul) */
+.btn-editar {
+    background-color: #4CAF50; /* Cor verde para editar */
+    color: white;
+    border: 1px solid #4CAF50; /* Borda verde */
+}
+
+.btn-editar:hover {
+    background-color: #45a049; /* Efeito ao passar o mouse */
+}
+
+/* Botão Excluir (cor vermelha) */
+.btn-excluir {
+    background-color: red; /* Cor vermelha para excluir */
+    color: white;
+    border: 1px solid red; /* Borda vermelha */
+}
+
+.btn-excluir:hover {
+    background-color: darkred; /* Efeito ao passar o mouse */
+}
+
+.btn-add-residuo {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-add-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Estilo para o link em si (opcional) */
+.btn-add {
+    text-decoration: none; /* Evita que o link tenha sublinhado */
+}
+
+/* Container de Visualização */
+.visualizar-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.visualizar-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Layout das Informações */
+.residuo-info,
+.coletor-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.residuo-info img,
+.coletor-info img {
+    margin-right: 20px;
+    border-radius: 8px;
+    max-width: 150px;
+}
+
+.residuo-info div,
+.coletor-info div {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Estilo do Coletor */
+.coletor-info div {
+    font-weight: bold;
+}
+
+/* Botões de Ação */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-container a {
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+/* Botão Voltar (azul) */
+.btn-voltar {
+    background-color: #2196F3;
+    color: white;
+    border: 1px solid #2196F3;
+}
+
+.btn-voltar:hover {
+    background-color: #1976D2;
+}
+
+.btn-novo {
+    background-color: #FF9800;
+    color: white;
+    border: 1px solid #FF9800;
+}
+
+.btn-novo:hover {
+    background-color: #F57C00;
+}
+
+.imagem-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.imagem-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.imagem-container p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
