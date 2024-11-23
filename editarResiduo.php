@@ -84,7 +84,7 @@ if(isset($_POST['botao'])){
 
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($nome); ?>" required>
+                <input type="text" maxlength="30" id="nome" name="nome" value="<?php echo htmlspecialchars($nome); ?>" required>
             </div>
 
             <div class="form-group">
