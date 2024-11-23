@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/11/2024 às 22:33
+-- Tempo de geração: 23/11/2024 às 18:26
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `recicla_if`
 --
+CREATE DATABASE IF NOT EXISTS `recicla_if` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `recicla_if`;
 
 -- --------------------------------------------------------
 
@@ -32,6 +34,19 @@ CREATE TABLE `coletor` (
   `nome` varchar(200) NOT NULL,
   `icone` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `coletor`
+--
+
+INSERT INTO `coletor` (`id`, `nome`, `icone`) VALUES
+(8, 'Metal', 'imagensColetores/icone_metal.png'),
+(9, 'Não Reciclável', 'imagensColetores/icone_nao_reciclavel.png'),
+(10, 'Orgânico', 'imagensColetores/icone_organico.png'),
+(11, 'Outro', 'imagensColetores/icone_outro.png'),
+(12, 'Papel', 'imagensColetores/icone_papel.png'),
+(13, 'Plástico', 'imagensColetores/icone_plastico.png'),
+(14, 'Vidro', 'imagensColetores/icone_vidro.png');
 
 -- --------------------------------------------------------
 
@@ -90,13 +105,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `coletor`
 --
 ALTER TABLE `coletor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `residuo`
 --
 ALTER TABLE `residuo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
@@ -107,12 +122,6 @@ ALTER TABLE `usuario`
 --
 -- Restrições para tabelas despejadas
 --
-
---
--- Restrições para tabelas `coletor`
---
-ALTER TABLE `coletor`
-  ADD CONSTRAINT `coletor_ibfk_1` FOREIGN KEY (`id`) REFERENCES `residuo` (`coletor_descarte`);
 
 --
 -- Restrições para tabelas `residuo`
