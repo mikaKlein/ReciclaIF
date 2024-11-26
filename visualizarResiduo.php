@@ -1,6 +1,6 @@
 <?php
-if(isset($_GET['idResiduo'])){
-    require_once __DIR__."/vendor/autoload.php";
+if (isset($_GET['idResiduo'])) {
+    require_once __DIR__ . "/vendor/autoload.php";
     $residuo = Residuo::find($_GET['idResiduo']);
     $nome = $residuo->getNome();
     $descricao = $residuo->getDescricao();
@@ -8,24 +8,36 @@ if(isset($_GET['idResiduo'])){
     $coletorId = $residuo->getIdColetor();
 
     $coletor = Coletor::find($coletorId);
+    $coletorNome = $coletor->getNome();
     $coletorImagem = $coletor->getCaminhoImagem();
-} else {
-    $nome = '';
-    $descricao = '';
-    $imagem = '';
-    $coletorId = '';
-    $coletorImagem = '';
-}
+    $corColetor = $coletor->getCor();
 
+    // Mapeamento de cores do coletor para tons pastel
+    $coresPastel = [
+        "Amarelo" => "#FFF9C4", // Metal
+        "Cinza" => "#CFD8DC",   // Não reciclável
+        "Marrom" => "#D7CCC8",  // Orgânico
+        "Branco" => "#F5F5F5",  // Outros
+        "Azul" => "#BBDEFB",    // Papel
+        "Vermelho" => "#FFCDD2",// Plástico
+        "Verde" => "#C8E6C9"    // Vidro
+    ];
+
+    // Definindo a cor de fundo
+    $corDeFundo = isset($coresPastel[$corColetor]) ? $coresPastel[$corColetor] : "#FFFFFF"; // Branco por padrão
+} else {
+    exit("Resíduo não encontrado.");
+}
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Resíduo</title>
-    <link rel="stylesheet" href="style.css"> <!-- Referência ao arquivo de estilo externo -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -35,29 +47,41 @@ if(isset($_GET['idResiduo'])){
         </div>
     </header>
     <main>
-        <div class="visualizar-container">
-            <h2>Visualizar Resíduo</h2>
+        <!-- Container do Resíduo -->
+        <div class="residuo-container" style="background-color: <?php echo htmlspecialchars($corDeFundo); ?>;">
+            <!-- Imagem Grande do Resíduo -->
+            <div class="residuo-imagem">
+                <img src="<?php echo htmlspecialchars($imagem); ?>" alt="Imagem do resíduo">
+            </div>
 
+            <!-- Informações do Resíduo -->
             <div class="residuo-info">
-                <img src="<?php echo $imagem; ?>" alt="Imagem do resíduo">
-                <div>
-                    <h3><?php echo htmlspecialchars($nome); ?></h3>
-                    <p><strong>Descrição:</strong> <?php echo htmlspecialchars($descricao); ?></p>
-                </div>
+                <h1><?php echo htmlspecialchars($nome); ?></h1>
+                <p><?php echo htmlspecialchars($descricao); ?></p>
+                <p>
+                    <strong>Tipo de coletor:</strong> 
+                    <?php echo htmlspecialchars($coletorNome); ?>
+                    <img src="<?php echo htmlspecialchars($coletorImagem); ?>" alt="Ícone do coletor" class="coletor-icone">
+                </p>
             </div>
+        </div>
 
-            <div class="coletor-info">
-                <img src="<?php echo $coletorImagem; ?>" alt="Imagem do coletor">
-                <div>
-                    <p><strong>Coletor: </strong><?php echo $coletor->getNome(); ?></p>
+        <!-- Botões de Ação -->
+        <div class="residuo-buttons">
+            <a href="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-editar">Editar</a>
+            <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
+            <a href="index.php" class="btn-voltar">Voltar à Listagem</a>
+        </div>
+
+        <!-- Popup de Confirmação -->
+        <div id="popup-delete" class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+                <h2>Confirmação de Exclusão</h2>
+                <p>Tem certeza de que deseja excluir este resíduo?</p>
+                <div class="popup-buttons">
+                    <a id="confirm-delete" href="#" class="btn-confirm">Sim, excluir</a>
+                    <button class="btn-cancel" onclick="closePopup()">Cancelar</button>
                 </div>
-            </div>
-
-            <div class="button-container">
-                <a href="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-editar">Editar</a>
-                <a href="deletarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
-                <a href="index.php" class="btn-voltar">Voltar à Listagem</a>
-                <a href="cadastrarResiduo.php" class="btn-novo">Cadastrar Novo Resíduo</a>
             </div>
         </div>
     </main>

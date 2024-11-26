@@ -70,6 +70,7 @@ if(isset($_POST['botao'])){
         </div>
     </header>
     <main>
+        <h2>Editar Residuo</h2>
         <form action="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="imagem">Adicionar Imagem</label>

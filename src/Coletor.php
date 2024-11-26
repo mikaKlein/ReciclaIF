@@ -4,7 +4,7 @@ class Coletor implements ActiveRecord{
 
     private int $idColetor;
     
-    public function __construct(private string $nome, private string $caminho_imagem){
+    public function __construct(private string $nome, private string $caminho_imagem, private string $cor){
     }
 
     public function setidColetor(int $idColetor):void{
@@ -31,12 +31,20 @@ class Coletor implements ActiveRecord{
         return $this->caminho_imagem;
     }
 
+    public function setCor(string $cor):void{
+        $this->cor = $cor;
+    }
+
+    public function getCor():string{
+        return $this->cor;
+    }
+
     public function save():bool{
         $conexao = new MySQL();
         if(isset($this->idColetor)){
-            $sql = "UPDATE coletor SET nome = '{$this->nome}', icone = '{$this->caminho_imagem}' WHERE id = {$this->idColetor}";
+            $sql = "UPDATE coletor SET nome = '{$this->nome}', icone = '{$this->caminho_imagem}', cor = '{$this->cor}' WHERE id = {$this->idColetor}";
         }else{
-            $sql = "INSERT INTO coletor (nome, icone) VALUES ('{$this->nome}', '{$this->caminho_imagem}')";
+            $sql = "INSERT INTO coletor (nome, icone, cor) VALUES ('{$this->nome}', '{$this->caminho_imagem}', '{$this->cor}')";
         }
         return $conexao->executa($sql);
         
@@ -51,7 +59,7 @@ class Coletor implements ActiveRecord{
         $conexao = new MySQL();
         $sql = "SELECT * FROM coletor WHERE id = {$idColetor}";
         $resultado = $conexao->consulta($sql);
-        $c = new Coletor($resultado[0]['nome'], $resultado[0]['icone']);
+        $c = new Coletor($resultado[0]['nome'], $resultado[0]['icone'], $resultado[0]['cor']);
         $c->setidColetor($resultado[0]['id']);
         return $c;
     }
@@ -61,7 +69,7 @@ class Coletor implements ActiveRecord{
         $resultados = $conexao->consulta($sql);
         $coletores = array();
         foreach($resultados as $resultado){
-            $c = new Coletor($resultado['nome'], $resultado['icone']);
+            $c = new Coletor($resultado['nome'], $resultado['icone'], $resultado['cor']);
             $c->setidColetor($resultado['id']);
             $coletores[] = $c;
         }

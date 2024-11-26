@@ -55,20 +55,33 @@ h1 {
     margin-bottom: 15px;
 }
 
-.form-group label {
-    display: block;
+label {
+    font-family: Arial, sans-serif; /* Mesmo estilo de fonte */
     font-size: 14px;
+    color: #333;
+}
+
+.form-group label {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    display: block;
     margin-bottom: 5px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ccc;
     width: 100%;
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .form-group textarea {
@@ -147,32 +160,55 @@ a {
     font-weight: bold;
     text-align: center;
 }
+
 .btn-visualizar {
-    background-color: #2196F3; /* Cor azul para visualizar */
+    background-color: #3498db; /* Azul */
     color: white;
-    border: 1px solid #2196F3; /* Borda azul */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove o sublinhado */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-visualizar:hover {
+    opacity: 0.9;
 }
 
 /* Botão Editar (cor azul) */
 .btn-editar {
-    background-color: #4CAF50; /* Cor verde para editar */
+    background-color: #2ecc71; /* Verde */
     color: white;
-    border: 1px solid #4CAF50; /* Borda verde */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove o sublinhado */
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .btn-editar:hover {
-    background-color: #45a049; /* Efeito ao passar o mouse */
+    opacity: 0.9;
 }
 
 /* Botão Excluir (cor vermelha) */
 .btn-excluir {
-    background-color: red; /* Cor vermelha para excluir */
+    background-color: #e74c3c; /* Vermelho */
     color: white;
-    border: 1px solid red; /* Borda vermelha */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove o sublinhado caso seja um link */
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .btn-excluir:hover {
-    background-color: darkred; /* Efeito ao passar o mouse */
+    opacity: 0.9;
 }
 
 .btn-add-residuo {
@@ -258,23 +294,45 @@ a {
 
 /* Botão Voltar (azul) */
 .btn-voltar {
-    background-color: #2196F3;
-    color: white;
-    border: 1px solid #2196F3;
+    background-color: #2196F3; /* Azul */
+    color: white; /* Texto branco */
+    border: 1px solid #2196F3; /* Borda na mesma cor do fundo */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    transition: all 0.3s ease; /* Transição suave para hover */
+    text-decoration: none; /* Remove sublinhado caso seja um link */
+    display: inline-block; /* Para ajuste de altura e largura */
 }
 
+/* Efeito de hover no botão Voltar */
 .btn-voltar:hover {
-    background-color: #1976D2;
+    background-color: #1976D2; /* Azul mais escuro */
+    border-color: #1976D2; /* Alinha a borda com o fundo no hover */
+    color: white; /* Mantém o texto branco */
 }
 
 .btn-novo {
-    background-color: #FF9800;
-    color: white;
-    border: 1px solid #FF9800;
+    background-color: #FF9800; /* Laranja */
+    color: white; /* Texto branco */
+    border: 1px solid #FF9800; /* Borda na mesma cor do fundo */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    transition: all 0.3s ease; /* Transição suave para hover */
+    text-decoration: none; /* Remove o sublinhado caso seja um link */
+    display: inline-block; /* Para ajuste de altura e largura */
 }
 
+/* Efeito de hover no botão Novo */
 .btn-novo:hover {
-    background-color: #F57C00;
+    background-color: #F57C00; /* Laranja mais escuro */
+    border-color: #F57C00; /* Alinha a borda com o fundo no hover */
+    color: white; /* Mantém o texto branco */
 }
 
 .imagem-container {
@@ -293,4 +351,285 @@ a {
     color: #333;
     margin-bottom: 10px;
     font-weight: bold;
+}
+
+
+
+
+
+
+
+.popup-overlay {
+    position: fixed; /* Garante que o popup-overlay cubra a tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; /* Flexbox para centralização */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    z-index: 9999; /* Certifique-se de que está acima de outros elementos */
+}
+
+/* Conteúdo do popup */
+.popup-content {
+    background-color: white; /* Fundo do popup */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    text-align: center; /* Centraliza o texto no popup */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+    width: 300px; /* Define largura fixa */
+    max-width: 90%; /* Ajuste responsivo para telas menores */
+    z-index: 10000; /* Garante que o conteúdo do popup esteja acima do overlay */
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+/* Estilo base para os dois botões */
+.btn-confirm,
+.btn-cancel {
+    display: inline-block;
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    text-align: center; /* Centraliza o texto */
+    cursor: pointer; /* Cursor de mão no hover */
+    text-decoration: none; /* Remove o sublinhado do link */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+}
+
+/* Botão Confirmar (Excluir) em verde */
+.btn-confirm {
+    background-color: #28a745; /* Verde */
+    color: white; /* Texto branco */
+    border: 1px solid #28a745; /* Borda verde */
+}
+
+.btn-confirm:hover {
+    background-color: #218838; /* Verde mais escuro no hover */
+    border-color: #218838; /* Borda mais escura no hover */
+}
+
+/* Botão Cancelar em cinza */
+.btn-cancel {
+    background-color: #6c757d; /* Cinza */
+    color: white; /* Texto branco */
+    border: 1px solid #6c757d; /* Borda cinza */
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268; /* Cinza mais escuro no hover */
+    border-color: #5a6268; /* Borda mais escura no hover */
+}
+
+
+
+
+
+
+
+
+
+
+/* Container do Resíduo */
+.residuo-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+    color: #333; /* Texto escuro */
+}
+
+/* Estilo da Imagem do Resíduo */
+.residuo-imagem img {
+    width: auto; /* Ajusta automaticamente a largura para manter proporção */
+    height: 100%; /* Preenche o contêiner na altura disponível */
+    max-height: 300px; /* Limita a altura máxima */
+    max-width: 300px; /* Limita a largura máxima */
+    object-fit: contain; /* Mostra a imagem completa sem cortá-la */
+    border-radius: 10px; /* Mantém bordas arredondadas */
+    border: 3px solid #ddd; /* Borda sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Informações do Resíduo */
+.residuo-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza os textos verticalmente */
+    gap: 10px; /* Espaçamento entre elementos */
+    padding-left: 20px;
+}
+
+.residuo-info h1 {
+    font-size: 32px; /* Tamanho maior */
+    margin: 0;
+    color: #222; /* Texto escuro */
+}
+
+.residuo-info p {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+}
+
+.residuo-info p strong {
+    color: #111; /* Destaque no texto */
+}
+
+/* Ícone do Coletor */
+.coletor-icone {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .residuo-container {
+        flex-direction: column; /* Itens empilhados em telas menores */
+        text-align: center;
+    }
+
+    .residuo-imagem img {
+        width: 80%; /* Imagem ocupa 80% da largura disponível */
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .residuo-info {
+        text-align: center; /* Centraliza texto */
+        padding-left: 0; /* Remove padding lateral */
+    }
+}
+
+
+
+
+.card {
+    width: calc(33.33% - 20px); /* Faz com que cada cartão ocupe 1/3 da largura da linha, com margem */
+    max-width: 300px; /* Define uma largura máxima para os cartões */
+    margin: 10px; /* Adiciona espaçamento entre os cartões */
+    background-color: var(--coletor-pastel); /* Cor do fundo com base no coletor */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex; /* Flexbox para ajustar conteúdo interno */
+    flex-direction: column; /* Elementos dispostos verticalmente */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    overflow: hidden; /* Evita que elementos internos extrapolem o limite do cartão */
+}
+
+.residuos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.residuo-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.residuo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.residuo-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.residuo-imagem {
+    width: 100%; /* A imagem ocupa toda a largura disponível */
+    max-width: 150px; /* Limita a largura máxima da imagem */
+    height: auto; /* Mantém a proporção original */
+    object-fit: contain; /* Ajusta a imagem ao espaço disponível sem cortar */
+    border-radius: 8px; /* Bordas arredondadas para estética */
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+    display: block; /* Garante que a imagem não seja inline */
+}
+
+.residuo-info {
+    margin-top: 10px; /* Adiciona espaçamento entre a imagem e o texto */
+}
+
+.residuo-nome {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333; /* Cor do texto */
+    margin: 0;
+}
+.residuo-coletor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    color: #555; /* Cor do texto */
+    gap: 8px; /* Espaçamento entre o texto e o ícone */
+}
+
+.coletor-icone {
+    width: 40px; /* Tamanho do ícone */
+    height: 40px;
+    object-fit: contain;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.card-actions .btn-editar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.card-actions .btn-excluir {
+    background-color: #F44336;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.card-actions .btn-editar,
+.card-actions .btn-excluir {
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%; /* Garante que todo o cartão seja clicável */
 }

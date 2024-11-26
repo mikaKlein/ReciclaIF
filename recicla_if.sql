@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/11/2024 às 18:26
+-- Tempo de geração: 26/11/2024 às 19:38
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Versão do PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `recicla_if`
 --
+
 CREATE DATABASE IF NOT EXISTS `recicla_if` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `recicla_if`;
 
@@ -32,21 +33,22 @@ USE `recicla_if`;
 CREATE TABLE `coletor` (
   `id` int(11) NOT NULL,
   `nome` varchar(200) NOT NULL,
-  `icone` varchar(500) NOT NULL
+  `icone` varchar(500) NOT NULL,
+  `cor` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `coletor`
 --
 
-INSERT INTO `coletor` (`id`, `nome`, `icone`) VALUES
-(8, 'Metal', 'imagensColetores/icone_metal.png'),
-(9, 'Não Reciclável', 'imagensColetores/icone_nao_reciclavel.png'),
-(10, 'Orgânico', 'imagensColetores/icone_organico.png'),
-(11, 'Outro', 'imagensColetores/icone_outro.png'),
-(12, 'Papel', 'imagensColetores/icone_papel.png'),
-(13, 'Plástico', 'imagensColetores/icone_plastico.png'),
-(14, 'Vidro', 'imagensColetores/icone_vidro.png');
+INSERT INTO `coletor` (`id`, `nome`, `icone`, `cor`) VALUES
+(8, 'Metal', 'imagensColetores/icone_metal.png', 'Amarelo'),
+(9, 'Não Reciclável', 'imagensColetores/icone_nao_reciclavel.png', 'Cinza'),
+(10, 'Orgânico', 'imagensColetores/icone_organico.png', 'Marrom'),
+(11, 'Outro', 'imagensColetores/icone_outro.png', 'Branco'),
+(12, 'Papel', 'imagensColetores/icone_papel.png', 'Azul'),
+(13, 'Plástico', 'imagensColetores/icone_plastico.png', 'Vermelho'),
+(14, 'Vidro', 'imagensColetores/icone_vidro.png', 'Verde');
 
 -- --------------------------------------------------------
 
@@ -61,6 +63,13 @@ CREATE TABLE `residuo` (
   `imagem_residuo` varchar(500) NOT NULL,
   `descricao` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `residuo`
+--
+
+INSERT INTO `residuo` (`id`, `coletor_descarte`, `nome`, `imagem_residuo`, `descricao`) VALUES
+(4, 12, 'Mikael Odair Klein', 'imagensResiduos/674604ecda99e_Captura de tela 2024-11-26 141412.png', 'lala');
 
 -- --------------------------------------------------------
 
@@ -111,7 +120,7 @@ ALTER TABLE `coletor`
 -- AUTO_INCREMENT de tabela `residuo`
 --
 ALTER TABLE `residuo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`

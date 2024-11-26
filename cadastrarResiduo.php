@@ -7,12 +7,12 @@ if(isset($_POST['botao'])){
     $imagem = $_FILES['imagem'];
     $pasta_imagens = "imagensResiduos";
 
-    // $tipos_permitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    // $tipo_arquivo = mime_content_type($imagem['tmp_name']);
+    $tipos_permitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $tipo_arquivo = mime_content_type($imagem['tmp_name']);
 
-    // if (!in_array($tipo_arquivo, $tipos_permitidos)) {
-    //     exit('Tipo de arquivo não permitido');
-    // }
+    if (!in_array($tipo_arquivo, $tipos_permitidos)) {
+       exit('Tipo de arquivo não permitido');
+    }
 
     if (!is_dir($pasta_imagens)) {
         mkdir($pasta_imagens, 0777, true);
@@ -54,6 +54,7 @@ $coletores = Coletor::findall();
         </div>
     </header>
     <main>
+        <h2>Cadastrar Resíduo</h2>
         <form action="cadastrarResiduo.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="imagem">Adicionar Imagem</label>
