@@ -24,6 +24,7 @@ $residuos = Residuo::findall();
             <table>
                 <tr>
                     <td>Nome</td>
+                    <td>Imagem</td>
                     <td>Coletor</td>
                     <td>Opções</td>
                 </tr>
@@ -31,11 +32,12 @@ $residuos = Residuo::findall();
                 foreach($residuos as $residuo){
                     echo "<tr>";
                     echo "<td>{$residuo->getNome()}</td>";
-                    
+                    echo "<td><img src='{$residuo->getCaminhoImagem()}' width='50px'></td>";
+
                     $coletor_id = $residuo->getIdColetor();
                     $coletor = Coletor::find($coletor_id);
                     $caminho_imagem = $coletor->getCaminhoImagem();
-
+                    
                     echo "<td><img src='{$caminho_imagem}' width='50px'></td>";
                     echo "<td>
                             <a href='visualizarResiduo.php?idResiduo={$residuo->getIdResiduo()}' class='btn-visualizar'>Visualizar</a>
