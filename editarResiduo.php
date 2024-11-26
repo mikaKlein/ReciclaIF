@@ -105,6 +105,8 @@ if(isset($_POST['botao'])){
             </div>
             <button name="botao" type="submit" class="submit-btn">Editar</button>
         </form>
+        <br>
+        <a href="index.php" class="btn-voltar">Voltar à Listagem</a>
     </main>
 </body>
 </html>
