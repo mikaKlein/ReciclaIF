@@ -7,6 +7,13 @@ if(isset($_POST['botao'])){
     $imagem = $_FILES['imagem'];
     $pasta_imagens = "imagensResiduos";
 
+    // $tipos_permitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    // $tipo_arquivo = mime_content_type($imagem['tmp_name']);
+
+    // if (!in_array($tipo_arquivo, $tipos_permitidos)) {
+    //     exit('Tipo de arquivo não permitido');
+    // }
+
     if (!is_dir($pasta_imagens)) {
         mkdir($pasta_imagens, 0777, true);
     }
@@ -60,7 +67,7 @@ $coletores = Coletor::findall();
 
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
-                <textarea id="descricao" name="descricao" required></textarea>
+                <textarea id="descricao" name="descricao" maxlength="80" required></textarea>
             </div>
 
             <div class="form-group">
