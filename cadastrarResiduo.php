@@ -63,7 +63,7 @@ $coletores = Coletor::findall();
 
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" maxlength="30" required>
+                <input type="text" id="nome" name="nome" maxlength="25" required>
             </div>
 
             <div class="form-group">

@@ -1,5 +1,11 @@
 <?php
 require_once __DIR__."/vendor/autoload.php";
+session_start();
+if(isset($_SESSION['id'])){
+    $usuario_id = $_SESSION['id'];
+    $usuario = Usuario::find($usuario_id);
+}
+
 $residuos = Residuo::findall();
 $coresPastel = [
     "Amarelo" => "#FFF9C4",
@@ -25,15 +31,28 @@ $coresPastel = [
     <header>
         <div class="logo">Recicla IF</div>
         <div class="usuario">
-            <span>Conteudista</span>
+            <span>
+                <?php 
+                    if(isset($usuario_id)){
+                        echo "Olá, " . htmlspecialchars($usuario->getEmailInstitucional());
+                        echo '<a href="logout.php">Sair</a>';
+                    } else {
+                        echo "Vendo como visitante";
+                        echo '<a class="btn-entrar" href="login.php">Entrar</a>';
+                    } 
+                ?>
+            </span>
+            
         </div>
     </header>
     <main>
-        <a href='cadastrarResiduo.php' class='btn-add'>
+        <?php if (isset($usuario_id)): ?>
+            <a href='cadastrarResiduo.php' class='btn-add'>
             <button class="btn-add-residuo">
                 <span class="btn-add-text">+</span> Adicionar Resíduo
             </button>
-        </a>
+            </a>
+        <?php endif; ?>
         <div class="residuos-container">
             <?php foreach ($residuos as $residuo): ?>
                 <?php
@@ -45,17 +64,19 @@ $coresPastel = [
                         <div class="residuo-content">
                             <img src="<?php echo $residuo->getCaminhoImagem(); ?>" alt="Imagem do Resíduo" class="residuo-imagem">
                             <div class="residuo-info">
-                                <h3 class="residuo-nome"><?php echo htmlspecialchars($residuo->getNome()); ?></h3>
-                                <p class="residuo-coletor">
-                                    Tipo de Coletor: <?php echo htmlspecialchars($coletor->getNome()); ?>
-                                    <img src="<?php echo $coletor->getCaminhoImagem(); ?>" alt="Ícone do Coletor" class="coletor-icone">
-                                </p>
+                                <h1 class="residuo-nome"><?php echo htmlspecialchars($residuo->getNome()); ?></h1>
+                                <div class="residuo-coletor">
+                                    <label class="label-residuo" for="">Tipo de coletor: <?php echo htmlspecialchars($coletor->getNome()); ?></label>                                                                     
+                                </div>
+                                <img src="<?php echo $coletor->getCaminhoImagem(); ?>" alt="Ícone do Coletor" class="coletor-icone">
                             </div>
                         </div>
                     </a>
                     <div class="card-actions">
-                        <a href="editarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="btn-editar">Editar</a>
-                        <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
+                        <?php if (isset($usuario_id)): ?>
+                            <a href="editarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="btn-editar">Editar</a>
+                            <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>

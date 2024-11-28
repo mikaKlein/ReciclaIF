@@ -1,6 +1,13 @@
 <?php
 if (isset($_GET['idResiduo'])) {
     require_once __DIR__ . "/vendor/autoload.php";
+
+    session_start();
+    if(isset($_SESSION['id'])){
+        $usuario_id = $_SESSION['id'];
+        $usuario = Usuario::find($usuario_id);
+    }
+
     $residuo = Residuo::find($_GET['idResiduo']);
     $nome = $residuo->getNome();
     $descricao = $residuo->getDescricao();
@@ -12,7 +19,6 @@ if (isset($_GET['idResiduo'])) {
     $coletorImagem = $coletor->getCaminhoImagem();
     $corColetor = $coletor->getCor();
 
-    // Mapeamento de cores do coletor para tons pastel
     $coresPastel = [
         "Amarelo" => "#FFF9C4", // Metal
         "Cinza" => "#CFD8DC",   // Não reciclável
@@ -23,8 +29,7 @@ if (isset($_GET['idResiduo'])) {
         "Verde" => "#C8E6C9"    // Vidro
     ];
 
-    // Definindo a cor de fundo
-    $corDeFundo = isset($coresPastel[$corColetor]) ? $coresPastel[$corColetor] : "#FFFFFF"; // Branco por padrão
+    $corDeFundo = isset($coresPastel[$corColetor]) ? $coresPastel[$corColetor] : "#FFFFFF";
 } else {
     exit("Resíduo não encontrado.");
 }
@@ -43,7 +48,18 @@ if (isset($_GET['idResiduo'])) {
     <header>
         <div class="logo">Recicla IF</div>
         <div class="usuario">
-            <span>Conteudista</span>
+            <span>
+                <?php 
+                    if(isset($usuario_id)){
+                        echo "Olá, " . htmlspecialchars($usuario->getEmailInstitucional());
+                        echo '<a href="logout.php">Sair</a>';
+                    } else {
+                        echo "Vendo como visitante";
+                        echo '<a class="btn-entrar" href="login.php">Entrar</a>';
+                    } 
+                ?>
+            </span>
+            
         </div>
     </header>
     <main>
@@ -68,8 +84,10 @@ if (isset($_GET['idResiduo'])) {
 
         <!-- Botões de Ação -->
         <div class="residuo-buttons">
-            <a href="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-editar">Editar</a>
-            <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
+            <?php if (isset($_SESSION['id'])): // Verifica se o usuário está logado ?>
+                <a href="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-editar">Editar</a>
+                <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
+            <?php endif; ?>
             <a href="index.php" class="btn-voltar">Voltar à Listagem</a>
         </div>
 
