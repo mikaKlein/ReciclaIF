@@ -63,7 +63,7 @@ class Coletor implements ActiveRecord{
         $c->setidColetor($resultado[0]['id']);
         return $c;
     }
-    public static function findall():array{
+    public static function findAll():array{
         $conexao = new MySQL();
         $sql = "SELECT * FROM coletor";
         $resultados = $conexao->consulta($sql);
@@ -75,4 +75,6 @@ class Coletor implements ActiveRecord{
         }
         return $coletores;
     }
+
+    
 }

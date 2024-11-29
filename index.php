@@ -1,12 +1,35 @@
 <?php
-require_once __DIR__."/vendor/autoload.php";
+require_once __DIR__ . "/vendor/autoload.php";
 session_start();
-if(isset($_SESSION['id'])){
+
+// Verifica se o usuário está logado
+if (isset($_SESSION['id'])) {
     $usuario_id = $_SESSION['id'];
     $usuario = Usuario::find($usuario_id);
 }
 
-$residuos = Residuo::findall();
+// Inicializa os resíduos
+$residuos = Residuo::findAll();
+
+// Pegando os parâmetros de filtro da URL
+$searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
+$coletorFilter = isset($_GET['coletor']) ? $_GET['coletor'] : '';
+
+// Se houver pesquisa por nome de resíduo, filtramos os resíduos
+if ($searchTerm) {
+    $residuos = Residuo::findByName($searchTerm);
+}
+
+// Se houver filtro por tipo de coletor, filtramos os resíduos pelo tipo de coletor
+if ($coletorFilter) {
+    $residuos = Residuo::findByColetor($coletorFilter);
+}
+// Filtrando simultaneamente por nome de resíduo e tipo de coletor
+if ($searchTerm && $coletorFilter) {
+    $residuos = Residuo::findByNameAndColetor($searchTerm, $coletorFilter);
+}
+
+// Cores de fundo para os coletores
 $coresPastel = [
     "Amarelo" => "#FFF9C4",
     "Cinza" => "#CFD8DC",
@@ -16,6 +39,7 @@ $coresPastel = [
     "Vermelho" => "#FFCDD2",
     "Verde" => "#C8E6C9"
 ];
+$coletores = Coletor::findAll();
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +49,6 @@ $coresPastel = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resíduos Cadastrados</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -33,7 +56,7 @@ $coresPastel = [
         <div class="usuario">
             <span>
                 <?php 
-                    if(isset($usuario_id)){
+                    if (isset($usuario_id)) {
                         echo "Olá, " . htmlspecialchars($usuario->getEmailInstitucional());
                         echo '<a href="logout.php">Sair</a>';
                     } else {
@@ -41,17 +64,37 @@ $coresPastel = [
                     } 
                 ?>
             </span>
-            
         </div>
     </header>
+    
     <main>
-        <?php if (isset($usuario_id)): ?>
-            <a href='cadastrarResiduo.php' class='btn-add'>
-            <button class="btn-add-residuo">
-                <span class="btn-add-text">+</span> Adicionar Resíduo
-            </button>
-            </a>
-        <?php endif; ?>
+        <div class="filter-search">
+                <form method="GET" action="">
+                    <input type="text" class="search-bar" placeholder="Pesquisar resíduo" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+
+                    <select name="coletor" class="coletor-filter">
+                        <option value="">Filtrar por tipo de coletor</option>
+                        <?php foreach ($coletores as $coletor): ?>
+                            <option value="<?php echo $coletor->getidColetor(); ?>"
+                                <?php echo (isset($_GET['coletor']) && $_GET['coletor'] == $coletor->getidColetor()) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($coletor->getNome()); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <button class="btn-search" type="submit">Pesquisar</button>
+                </form>
+
+                <?php if (isset($usuario_id)): ?>
+                    <a href='cadastrarResiduo.php' class='btn-add'>
+                    <button class="btn-add-residuo">
+                        <span class="btn-add-text">+</span> Adicionar Resíduo
+                    </button>
+                    </a>
+                <?php endif; ?>
+
+            </div>
+
         <div class="residuos-container">
             <?php foreach ($residuos as $residuo): ?>
                 <?php
@@ -72,16 +115,16 @@ $coresPastel = [
                         </div>
                     </a>
                     <?php if (isset($usuario_id)): ?>
-                    <div class="card-actions">           
-                        <a href="editarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="btn-editar">Editar</a>
-                        <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>   
-                    </div>
+                        <div class="card-actions">           
+                            <a href="editarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="btn-editar">Editar</a>
+                            <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>   
+                        </div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
     </main>
-    
+
     <div id="popup-delete" class="popup-overlay" style="display: none;">
         <div class="popup-content">
             <h2>Confirmação de Exclusão</h2>

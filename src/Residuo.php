@@ -83,4 +83,43 @@ class Residuo implements ActiveRecord{
         }
         return $residuos;
     }
+
+    public static function findByColetor(int $idColetor): array {
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM residuo WHERE coletor_descarte = {$idColetor}";
+        $resultados = $conexao->consulta($sql);
+        $residuos = array();
+        foreach ($resultados as $resultado) {
+            $r = new Residuo($resultado['nome'], $resultado['descricao'], $resultado['imagem_residuo'], $resultado['coletor_descarte']);
+            $r->setIdResiduo($resultado['id']);
+            $residuos[] = $r;
+        }
+        return $residuos;
+    }
+
+    public static function findByName($nome): array{
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM residuo WHERE nome LIKE '%{$nome}%'";
+        $resultados = $conexao->consulta($sql);
+        $residuos = array();
+        foreach($resultados as $resultado){
+            $r = new Residuo($resultado['nome'], $resultado['descricao'], $resultado['imagem_residuo'], $resultado['coletor_descarte']);
+            $r->setidResiduo($resultado['id']);
+            $residuos[] = $r;
+        }
+        return $residuos;
+    } 
+
+    public static function findByNameAndColetor($nome, $idColetor): array{
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM residuo WHERE nome LIKE '%{$nome}%' AND coletor_descarte = {$idColetor}";
+        $resultados = $conexao->consulta($sql);
+        $residuos = array();
+        foreach($resultados as $resultado){
+            $r = new Residuo($resultado['nome'], $resultado['descricao'], $resultado['imagem_residuo'], $resultado['coletor_descarte']);
+            $r->setidResiduo($resultado['id']);
+            $residuos[] = $r;
+        }
+        return $residuos;
+    } 
 }
