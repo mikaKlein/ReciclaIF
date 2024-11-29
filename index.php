@@ -37,7 +37,6 @@ $coresPastel = [
                         echo "Olá, " . htmlspecialchars($usuario->getEmailInstitucional());
                         echo '<a href="logout.php">Sair</a>';
                     } else {
-                        echo "Vendo como visitante";
                         echo '<a class="btn-entrar" href="login.php">Entrar</a>';
                     } 
                 ?>
@@ -72,12 +71,12 @@ $coresPastel = [
                             </div>
                         </div>
                     </a>
-                    <div class="card-actions">
-                        <?php if (isset($usuario_id)): ?>
-                            <a href="editarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="btn-editar">Editar</a>
-                            <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
-                        <?php endif; ?>
+                    <?php if (isset($usuario_id)): ?>
+                    <div class="card-actions">           
+                        <a href="editarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="btn-editar">Editar</a>
+                        <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>   
                     </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>

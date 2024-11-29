@@ -1,19 +1,34 @@
 <?php
+
+session_start();
+
 if (isset($_POST['botao'])) {
     require_once __DIR__ . "/vendor/autoload.php";
 
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    $usuario = Usuario::findByEmail($email);
+    if (!$email) {
+        $_SESSION['erro'] = "E-mail ou senha incorretos. Tente novamente!";
+        header("Location: login.php"); // Redireciona para a página de login com erro
+        exit;
+    }
 
-    if (!$usuario) {
-        echo "Usuário não encontrado!";
+    if (!preg_match('/@aluno\.feliz\.ifrs\.edu\.br$/', $email)) {
+        $_SESSION['erro'] = "E-mail ou senha incorretos. Tente novamente!";
+        header("Location: login.php"); // Redireciona para a página de login com erro
+        exit;
+    }
+
+    // Buscar o usuário no banco de dados
+    $usuario = Usuario::findByEmail($email);
+    if (!$usuario || !password_verify($senha, $usuario->getSenha())) {
+        $_SESSION['erro'] = "E-mail ou senha incorretos. Tente novamente!";
+        header("Location: login.php"); // Redireciona para a página de login com erro
         exit;
     }
 
     if (password_verify($senha, $usuario->getSenha())) {
-        session_start();
         $_SESSION['id'] = $usuario->getIdUser();
         header("Location: index.php");
         exit;

@@ -54,7 +54,6 @@ if (isset($_GET['idResiduo'])) {
                         echo "Olá, " . htmlspecialchars($usuario->getEmailInstitucional());
                         echo '<a href="logout.php">Sair</a>';
                     } else {
-                        echo "Vendo como visitante";
                         echo '<a class="btn-entrar" href="login.php">Entrar</a>';
                     } 
                 ?>
@@ -71,25 +70,29 @@ if (isset($_GET['idResiduo'])) {
             </div>
 
             <!-- Informações do Resíduo -->
-            <div class="residuo-info">
+            <div class="residuo-view-info">
                 <h1><?php echo htmlspecialchars($nome); ?></h1>
                 <p><?php echo htmlspecialchars($descricao); ?></p>
                 <p>
                     <strong>Tipo de coletor:</strong> 
                     <?php echo htmlspecialchars($coletorNome); ?>
-                    <img src="<?php echo htmlspecialchars($coletorImagem); ?>" alt="Ícone do coletor" class="coletor-icone">
                 </p>
+                <div class="imagem-view">
+                    <img src="<?php echo htmlspecialchars($coletorImagem); ?>" alt="Ícone do coletor" class="coletor-icone">
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="residuo-view-buttons">
+                <?php if (isset($_SESSION['id'])): // Verifica se o usuário está logado ?>
+                    <a href="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-editar">Editar</a>
+                    <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
+                <?php endif; ?>
+                <a href="index.php" class="btn-voltar">Voltar à Listagem</a>
             </div>
         </div>
 
-        <!-- Botões de Ação -->
-        <div class="residuo-buttons">
-            <?php if (isset($_SESSION['id'])): // Verifica se o usuário está logado ?>
-                <a href="editarResiduo.php?idResiduo=<?php echo $_GET['idResiduo']; ?>" class="btn-editar">Editar</a>
-                <button class="btn-excluir" onclick="openPopup(<?php echo $residuo->getIdResiduo(); ?>)">Excluir</button>
-            <?php endif; ?>
-            <a href="index.php" class="btn-voltar">Voltar à Listagem</a>
-        </div>
+        
 
         <!-- Popup de Confirmação -->
         <div id="popup-delete" class="popup-overlay" style="display: none;">
