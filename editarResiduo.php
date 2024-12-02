@@ -52,6 +52,12 @@ if(isset($_POST['botao'])){
     header("location: index.php");
 }
 
+session_start();
+if(isset($_SESSION['id'])){
+    $usuario_id = $_SESSION['id'];
+    $usuario = Usuario::find($usuario_id);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +72,18 @@ if(isset($_POST['botao'])){
     <header>
         <div class="logo">Recicla IF</div>
         <div class="usuario">
-            <span>Conteudista</span>
+            <span>
+                <?php 
+                    if(isset($usuario_id)){
+                        $name = explode("@",$usuario->getEmailInstitucional())[0];
+                        echo "Olá, " . htmlspecialchars($name);
+                        echo '<a href="logout.php">Sair</a>';
+                    } else {
+                        echo '<a class="btn-entrar" href="login.php">Entrar</a>';
+                    } 
+                ?>
+            </span>
+            
         </div>
     </header>
     <main>

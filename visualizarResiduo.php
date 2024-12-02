@@ -51,7 +51,8 @@ if (isset($_GET['idResiduo'])) {
             <span>
                 <?php 
                     if(isset($usuario_id)){
-                        echo "Olá, " . htmlspecialchars($usuario->getEmailInstitucional());
+                        $name = explode("@",$usuario->getEmailInstitucional())[0];
+                        echo "Olá, " . htmlspecialchars($name);
                         echo '<a href="logout.php">Sair</a>';
                     } else {
                         echo '<a class="btn-entrar" href="login.php">Entrar</a>';
