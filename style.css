@@ -829,3 +829,41 @@ a {
 .popup-content-2 .btn-close:hover {
     background-color: #E53E35;
 }
+
+.filter-search{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-search-form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-bar{
+    background-color: transparent;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.coletor-filter{
+    background-color: transparent;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.btn-search{
+    background-color: #218838;
+    padding: 7px;
+    border: none;
+    color: white;
+    border-radius: 7px;
+}

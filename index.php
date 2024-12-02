@@ -70,32 +70,31 @@ $coletores = Coletor::findAll();
     
     <main>
         <div class="filter-search">
-                <form method="GET" action="">
-                    <input type="text" class="search-bar" placeholder="Pesquisar resíduo" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <form class="filter-search-form" method="GET" action="">
+                <input type="text" class="search-bar" placeholder="Pesquisar resíduo" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
 
-                    <select name="coletor" class="coletor-filter">
-                        <option value="">Filtrar por tipo de coletor</option>
-                        <?php foreach ($coletores as $coletor): ?>
-                            <option value="<?php echo $coletor->getidColetor(); ?>"
-                                <?php echo (isset($_GET['coletor']) && $_GET['coletor'] == $coletor->getidColetor()) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($coletor->getNome()); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                <select name="coletor" class="coletor-filter">
+                    <option value="">Filtrar por tipo de coletor</option>
+                    <?php foreach ($coletores as $coletor): ?>
+                        <option value="<?php echo $coletor->getidColetor(); ?>"
+                            <?php echo (isset($_GET['coletor']) && $_GET['coletor'] == $coletor->getidColetor()) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($coletor->getNome()); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
-                    <button class="btn-search" type="submit">Pesquisar</button>
-                </form>
+                <button class="btn-search" type="submit">Filtrar</button>
+            </form>
 
-                <?php if (isset($usuario_id)): ?>
-                    <a href='cadastrarResiduo.php' class='btn-add'>
-                    <button class="btn-add-residuo">
-                        <span class="btn-add-text">+</span> Adicionar Resíduo
-                    </button>
-                    </a>
-                <?php endif; ?>
+            <?php if (isset($usuario_id)): ?>
+                <a href='cadastrarResiduo.php' class='btn-add'>
+                <button class="btn-add-residuo">
+                    <span class="btn-add-text">+</span> Adicionar Resíduo
+                </button>
+                </a>
+            <?php endif; ?>
 
-            </div>
-
+        </div>
         <div class="residuos-container">
             <?php foreach ($residuos as $residuo): ?>
                 <?php
