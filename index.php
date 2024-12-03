@@ -49,6 +49,7 @@ $coletores = Coletor::findAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resíduos Cadastrados</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
     <header>
@@ -104,7 +105,7 @@ $coletores = Coletor::findAll();
                 <div class="residuo-card" style="background-color: <?php echo $corFundo; ?>;">
                     <a href="visualizarResiduo.php?idResiduo=<?php echo $residuo->getIdResiduo(); ?>" class="card-link">
                         <div class="residuo-content">
-                            <img src="<?php echo $residuo->getCaminhoImagem(); ?>" alt="Imagem do Resíduo" class="residuo-imagem">
+                            <img src="<?php echo $residuo->getCaminhoImagem(); ?>" alt="Imagem do Resíduo" class="residuo-imagem-listagem">
                             <div class="residuo-info">
                                 <h1 class="residuo-nome"><?php echo htmlspecialchars($residuo->getNome()); ?></h1>
                                 <div class="residuo-coletor">

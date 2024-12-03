@@ -27,6 +27,17 @@ if(isset($_POST['botao'])){
         $imagem = $_FILES['imagem'];
         $pasta_imagens = "imagensResiduos";
 
+        $tipos_permitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $tipo_arquivo = mime_content_type($imagem['tmp_name']);
+    
+        if (!in_array($tipo_arquivo, $tipos_permitidos)) {
+            echo "<script>
+                    alert('Formato de imagem inválido!');
+                    window.location.href = 'index.php';
+                </script>";
+            exit;
+        }
+
         if (!is_dir($pasta_imagens)) {
             mkdir($pasta_imagens, 0777, true);
         }

@@ -33,7 +33,7 @@ if (isset($_POST['botao'])) {
 
     $usuario->save();
 
-    header("Location: index.php");
+    header("Location: login.php");
     exit;
 }
 ?>

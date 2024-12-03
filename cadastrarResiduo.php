@@ -11,7 +11,11 @@ if(isset($_POST['botao'])){
     $tipo_arquivo = mime_content_type($imagem['tmp_name']);
 
     if (!in_array($tipo_arquivo, $tipos_permitidos)) {
-       exit('Tipo de arquivo não permitido');
+        echo "<script>
+                alert('Formato de imagem inválido!');
+                window.location.href = 'index.php';
+            </script>";
+        exit;
     }
 
     if (!is_dir($pasta_imagens)) {

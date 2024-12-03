@@ -479,6 +479,13 @@ a {
 }
 
 .residuo-imagem {
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.residuo-imagem-listagem {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
@@ -842,7 +849,7 @@ a {
 .filter-search-form {
     width: 300px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
 }
 
